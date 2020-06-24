@@ -1,0 +1,16 @@
+{
+    "name": "budget Tracker",
+    "short_name": "B_track",
+    "icons":[
+       { "src": "icons/icon-192x192.png",
+        "sizes":"192x192",
+        "type":"img/png"},
+        { "src": "icons/icon-512x512.png",
+            "sizes":"512x512",
+            "type":"img/png"}
+    ],
+    "theme_color": "#ffff",
+    "background_color": "#ffff",
+    "start_url": "/",
+    "display": "fullscreen"
+}
