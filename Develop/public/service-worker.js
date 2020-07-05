@@ -39,33 +39,45 @@ self.addEventListener("activate", function (evt) {
 })
 
 self.addEventListener("fetch", function (evt) {
-    if (evt.request.method.includes("Get" || )) {
+    if (evt.request.method.includes("/api/")) {
         evt.respondeWith(
             caches.open(DATA_CAHCE_NAME).then(cache => {
                 return fetch(evt.request)
-                // not catching the response variable, rewrite this section
+        //   fixed error, extra "({})" was found causing bug
                     .then(response => {
-                        if (response => {
-                            // doesn't "get" values and write try to match with the "get" calls
-                                if (response.status === 200) {
-                                    cache.put(evt.request.url, response.clone)
-                                }
-                                return response
-                            })
-                            // error on load catches self loading err? comment this section out later
-                            .catch(err => {
-                                return cache.match(evt.request)
-                            }).catch(err => console.log(err))
+            
+                        if (response.status === 200) {
+                            cache.put(event.request.url, response.clone());
+                        }
+
+                        return response;
                     })
-            })
-        )
-        return
+                    .catch(err => {
+
+                        return cache.match(event.request);
+                    });
+            }).catch(err => console.log(err))
+        );
+
+        return;
     }
+
+    // evt not responding, try matching, use includes to make sure your 
+    // evts are catching requests being made and docked
+    // make sure caches match, use activity guideline to doc
     evt.respondeWith(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.match(evt.request).then(response => {
-                return response || fetch(evt.request)
-            })
-        })
+     fetch(evt.request).catch(()=>{
+         return caches.match(evt.request).then((response)=>{
+            if (response){
+                return response;
+                // checks to use chached items to render "use accept" 
+            }else if (evt.request.headers.get("accept").includes("text/html")){
+                //  should render the html for items
+                // when using indexdb for offline make sure req matches the stored items
+                // if not produce and err on fail from the indexdb or db.js
+                return caches.match("/")
+            }
+         })
+     })
     )
 })

@@ -9,8 +9,8 @@
             "sizes":"512x512",
             "type":"img/png"}
     ],
-    "theme_color": "#ffff",
-    "background_color": "#ffff",
+    "theme_color": "#fffff",
+    "background_color": "#fffff",
     "start_url": "/",
     "display": "fullscreen"
 }
